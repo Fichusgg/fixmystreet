@@ -14,7 +14,7 @@ This section of the manual is designed to help you understand how staff accounts
 
 This guide provides a **general overview** of each of FixMyStreet Pro's standard features. There may be small differences in how the software functions for different councils, depending on how you use the service, the integration(s) you have selected, and the individual processes reflected in your workflow. 
 
-Please speak to your Administrator if you have questions about functionality not covered specfically in the below guidance. If you are the Administrator and you need extra help, please open a ticket on Freshdesk.
+Please speak to your Administrator if you have questions about functionality not covered specifically in the below guidance. If you are the Administrator and you need extra help, please open a ticket on Freshdesk.
 
 ***
 
