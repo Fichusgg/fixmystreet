@@ -42,6 +42,8 @@ In some cases, depending on the type of plan you have opted for and the data ava
 
 In all other instances where a user is attempting to report a problem in a location that falls outside of your remit, they're guided to the main FixMyStreet website.
 
+<img alt="Automated report triaging" src="/assets/img/pro-user-guide/Red-routes-automated-triaging.png" />
+
 </div>
 
 ### Identifying the report location 
@@ -54,7 +56,11 @@ They’re then taken to a map, centred on this location. The user can pan and zo
 
 <img alt="Existing reports are visible to reduce the chance of duplicates" src="/assets/img/pro-user-guide/making-report-duplicates.png"  class="admin-screenshot"/>
 
-All reports are published online, so at this stage, citizens can see if their issue has already been reported. FixMyStreet Pro suggests potential duplicates to users based on the location and category of the report. If a report already exists for the same problem, the user can choose to subscribe to the report, which enables them to automatically receive updates on its progress at not extra work for you, the responsible authority.
+All reports are published online, so at this stage, citizens can see if their issue has already been reported. FixMyStreet Pro suggests potential duplicates to users based on the location and category of the report. 
+
+<img alt="Potential duplicates are actively suggested" src="/assets/img/pro-user-guide/Duplicate-reports.png"  class="admin-screenshot"/>
+
+If a report already exists for the same problem, the user can choose to subscribe to the report, which enables them to automatically receive updates on its progress at not extra work for you, the responsible authority.
 
 If not, they place a pin on the map and make their report.
 
@@ -78,6 +84,8 @@ sent to the council and are never made public.
 ### Making a report while offline
 
 As a progressive web app, users can access FixMyStreet and your branded FixMyStreet Pro service even while offline. This is particularly beneficial for remote communities or frontline contractors who need to access services even in low-connectivity environments.
+
+<img alt="Using FixMyStreet while offline" src="/assets/img/pro-user-guide/Offline-reporting.jpg" class="admin-screenshot" />
 
 If a user loads FixMyStreet while offline they will see the "You are currently offline" page. From here, the user will be able to start a report, save it as a draft (including being able to upload a photo and store the location of the problem) and come back to submit later when back online. Users can start and save multiple draft reports if needed.
 
