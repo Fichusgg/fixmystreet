@@ -14,6 +14,14 @@ the report-making process from the citizen’s point of view.
 Here’s a brief look at the user experience for members of the public when reporting an issue located within the
 boundaries of a council using FixMyStreet Pro.
 
+## Important notice
+
+This guide provides a **general overview** of each of FixMyStreet Pro's standard features. There may be small differences in how the software functions for different councils, depending on how you use the service, the integration(s) you have selected, and the individual processes reflected in your workflow. 
+
+Please speak to your Administrator if you have questions about functionality not covered specifically in the below guidance. If you are the Administrator and you need extra help, please open a ticket on Freshdesk.
+
+***
+
 ## Making a report
 
 ### Where to report
