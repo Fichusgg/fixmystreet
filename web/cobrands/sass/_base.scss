@@ -2561,7 +2561,7 @@ label .muted {
 .form-hint {
   display: block;
   margin-bottom: 0.5em;
-  color: #666;
+  color: #3d3d3d;
 
   // Reduce space between labels and their form-hints
   label + & {
@@ -2807,6 +2807,42 @@ label .muted {
     &:hover {
       text-decoration: $primary_link_hover_decoration;
     }
+  }
+
+  #photoForm {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem; 
+    width: auto;
+    background: transparent;
+    z-index: 1;
+    box-shadow: 0px -1px 13px 5px transparentize($color: #000, $amount: 0.3);
+    border-radius: 4px;
+
+    .dropzone {
+      text-align: left;
+      margin-bottom: 0;
+      padding: 0;
+      border-width: 0;
+
+      .dz-message {
+        u {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .dropzone-desktop {
+      display: none;
+    }
+
+    .dropzone-mobile {
+      display: block;
+    }
+  }
+
+  .label, label {
+    font-size: 1.25em;
   }
 }
 
@@ -3438,6 +3474,22 @@ $site-message-border: 1px solid #525252 !default;
   display: none;
 }
 
+.badge {
+  padding: 0.25em 0.35em;
+  margin-right: 0.25em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background-color: mix($primary, #fff, 50%);
+  border: 1px solid darken($primary, 10%);
+  font-size: 0.85rem;
+  -webkit-text-stroke-width: 0.09em;
+  -webkit-text-stroke-color: darken($primary, 30%);
+  color: darken($primary, 30%);
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
 @import "_admin";
 @import "_dropzone";
 @import "_multiselect";
@@ -3449,8 +3501,3 @@ $site-message-border: 1px solid #525252 !default;
 
 @import "govuk-frontend/forms";
 @import "_govuk"; // Adds some overrides to the default GOVUK behaviour
-
-#front-main .dropzone {
-  background-color: rgba(255, 190, 0, 0.88);
-  border-color: #a28400;
-}

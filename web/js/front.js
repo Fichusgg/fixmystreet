@@ -23,7 +23,7 @@
             // resizeWidth: 2048,
             // resizeQuality: 0.6,
             acceptedFiles: 'image/jpeg,image/pjpeg,image/gif,image/tiff,image/png,.png,.tiff,.tif,.gif,.jpeg,.jpg',
-            dictDefaultMessage: "Upload a photo to start a new report",
+            dictDefaultMessage: '<div class="dropzone-desktop">Browse or drag files here to upload</div><div class="dropzone-mobile"><u>Start a report with a photo</ul</div>',
             // dictCancelUploadConfirmation: translation_strings.upload_cancel_confirmation,
             // dictInvalidFileType: translation_strings.upload_invalid_file_type,
             // dictMaxFilesExceeded: translation_strings.upload_max_files_exceeded,
