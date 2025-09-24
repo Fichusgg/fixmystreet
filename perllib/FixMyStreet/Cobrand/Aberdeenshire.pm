@@ -228,17 +228,8 @@ sub _supersede_report {
     });
 
     while (my $alert = $alerts->next) {
-        $alert->disable;
-
-        # Create a new alert for the new problem
-        $alert->result_source->schema->resultset('Alert')->create({
-            alert_type => 'new_updates',
-            parameter => $new_problem->id,
-            user_id => $alert->user_id,
-            lang => $alert->lang,
-            cobrand => $alert->cobrand,
-            cobrand_data => $alert->cobrand_data,
-        })->confirm;
+        # Update the alert to point at the new problem
+        $alert->update({ parameter => $new_problem->id });
     }
 }
 
