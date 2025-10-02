@@ -477,7 +477,8 @@ sub property : Chained('property_id') : PathPart('') : CaptureArgs(0) {
         $c->detach('/auth/redirect');
     }
 
-    if ($id eq 'missing') {
+    if ($id =~ /^missing-(.*)/) {
+        $c->stash->{postcode} = $1;
         $c->stash->{template} = 'waste/missing.html';
         $c->detach;
     }
