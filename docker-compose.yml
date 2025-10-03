@@ -32,6 +32,7 @@ services:
         target: /run/lock
         tmpfs:
           size: "104857600"
+      - ./templates:/var/www/fixmystreet/fixmystreet/templates:cached
     environment:
       POSTGRES_PASSWORD: 'password'
       FMS_DB_HOST: 'postgres.svc'
