@@ -10,6 +10,7 @@ use FixMyStreet::App::Form::Waste::Bulky::Amend;
 use FixMyStreet::App::Form::Waste::Bulky::Cancel;
 use FixMyStreet::App::Form::Waste::SmallItems;
 use FixMyStreet::App::Form::Waste::SmallItems::Cancel;
+use FixMyStreet::App::Form::Waste::SmallItems::Amend;
 
 has feature => (
     is => 'ro',
@@ -148,8 +149,10 @@ sub item_list : Private {
                 my $fields = {};
                 my $data = $form->saved_data;
                 my $c = $form->{c};
-                $c->cobrand->bulky_total_cost($data);
-                $c->stash->{total} = ($c->stash->{payment} || 0) / 100;
+                if (!$form->small_items) {
+                    $c->cobrand->bulky_total_cost($data);
+                    $c->stash->{total} = ($c->stash->{payment} || 0) / 100;
+                }
                 return $fields;
             },
             post_process => sub {
@@ -158,8 +161,10 @@ sub item_list : Private {
                 my $c = $form->c;
 
                 # Calculate total cost
-                $c->cobrand->bulky_total_cost($data);
-                $data->{payment} = $c->stash->{payment};
+                if (!$form->small_items) {
+                    $c->cobrand->bulky_total_cost($data);
+                    $data->{payment} = $c->stash->{payment};
+                }
             },
         },
     ];
@@ -223,11 +228,15 @@ sub index_booking : Private {
 sub amend : Chained('setup') : Args(1) {
     my ($self, $c, $id) = @_;
 
+    my $small = $c->stash->{small_items};
     $c->stash->{first_page} = 'intro';
-    $c->stash->{form_class} = 'FixMyStreet::App::Form::Waste::Bulky::Amend';
+    $c->stash->{form_class} ||= 'FixMyStreet::App::Form::Waste::Bulky::Amend';
 
     my $collections = $c->cobrand->find_booked_collections($c->stash->{property}{uprn});
-    my $collection = (grep { $_->id == $id } @{$collections->{bulky}{pending}})[0];
+    my $collection = $small
+        ? (grep { $_->id == $id } @{$collections->{small_items}{pending}})[0]
+        : (grep { $_->id == $id } @{$collections->{bulky}{pending}})[0];
+
     $c->detach('/waste/property_redirect')
         if !$c->cobrand->call_hook('bulky_can_amend_collection', $collection);
 
@@ -307,6 +316,12 @@ sub cancel_small : PathPart('cancel') : Chained('setup_small') : Args(1) {
     my ( $self, $c, $id ) = @_;
     $c->stash->{form_class} = 'FixMyStreet::App::Form::Waste::SmallItems::Cancel';
     $c->detach('cancel');
+}
+
+sub amend_small : PathPart('amend') : Chained('setup_small') : Args(1) {
+    my ( $self, $c, $id ) = @_;
+    $c->stash->{form_class} = 'FixMyStreet::App::Form::Waste::SmallItems::Amend';
+    $c->detach('amend');
 }
 
 sub process_bulky_data : Private {
@@ -400,7 +415,11 @@ sub process_bulky_amend : Private {
         # then create a new event with the amended booking data from the form
         my $update = add_cancellation_update($c, $p, 'delayed');
 
-        $c->forward('process_bulky_data', [ $form ]) or return;
+        if ($c->stash->{small_items}) {
+            $c->forward('process_small_items_data', [ $form ]) or return;
+        } else {
+            $c->forward('process_bulky_data', [ $form ]) or return;
+        }
 
         # If there wasn't payment, we reach here and can set the things
         $c->forward('cancel_collection', [ $p, 'amendment' ]);
@@ -413,7 +432,7 @@ sub process_bulky_amend : Private {
         $new->update;
         $update->confirm;
         $update->update;
-        $new->bulky_add_payment_confirmation_update($p->get_extra_metadata('payment_reference'));
+        $new->bulky_add_payment_confirmation_update($p->get_extra_metadata('payment_reference')) if $p->get_extra_metadata('payment_reference');
         if ($c->cobrand->suppress_report_sent_email($new)) {
             $new->send_logged_email({ report => $new, cobrand => $c->cobrand }, 0, $c->cobrand);
         }

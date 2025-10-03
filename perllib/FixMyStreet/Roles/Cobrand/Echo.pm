@@ -199,11 +199,12 @@ sub bin_services_for_address {
     # service unit and we only want to call GetEventsForObject once with each
     # service unit
     my %seen_service_units;
+    my $today = DateTime->now->set_time_zone(FixMyStreet->local_time_zone)->strftime("%F");
     foreach (@rows) {
         my $schedules = $_->{Schedules};
         $_->{expired} = 1 if $self->waste_sub_overdue( $schedules->{end_date}, weeks => 4 );
 
-        next unless $schedules->{next} or $schedules->{last};
+        next unless $schedules->{end_date} ge $today; # Ignore schedules that have ended
         $_->{active} = 1;
         push @to_fetch, GetEventsForObject => [ ServiceUnit => $_->{Id} ]
             unless $seen_service_units{$_->{Id}}++;
@@ -1038,33 +1039,6 @@ sub save_item_names_to_report {
     foreach (grep { /^item_(notes_)?\d/ } keys %$data) {
         $report->set_extra_metadata($_ => $data->{$_}) if $data->{$_};
     }
-}
-
-sub bulky_nice_item_list {
-    my ($self, $report) = @_;
-
-    my @item_nums = map { /^item_(\d+)/ } grep { /^item_\d/ } keys %{$report->get_extra_metadata};
-    my @items = sort { $a <=> $b } @item_nums;
-
-    my @fields;
-    for my $item (@items) {
-        if (my $value = $report->get_extra_metadata("item_$item")) {
-            my $display = $value;
-            if (my $note = $report->get_extra_metadata("item_notes_$item")) {
-                $display .= " ($note)";
-            }
-            push @fields, { item => $value, display => $display };
-        }
-    }
-    my $items_extra = $report->category eq 'Small items collection' ? $self->small_items_extra() : $self->bulky_items_extra(exclude_pricing => 1);
-
-    return [
-        map {
-            value => $_->{display},
-            message => $items_extra->{$_->{item}}{message},
-        },
-        @fields,
-    ];
 }
 
 sub send_bulky_payment_echo_update_failed {
