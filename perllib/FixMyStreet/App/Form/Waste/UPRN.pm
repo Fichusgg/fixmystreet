@@ -26,7 +26,8 @@ has_field postcode => (
             }
             $self->add_error($error);
         }
-        push @$data, { value => 'missing', label => 'I can’t find my address' };
+        (my $pc = $self->value) =~ s/ //g;
+        push @$data, { value => 'missing-' . $pc, label => 'I can’t find my address' };
         $self->value($data);
     },
     tags => { autofocus => 1 },
