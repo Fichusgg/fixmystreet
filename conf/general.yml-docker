@@ -69,6 +69,7 @@ EXAMPLE_PLACES: [ 'High Street', 'Main Street' ]
 # <language code>,<pretty name>,<locale>
 LANGUAGES:
   - 'en-gb,English,en_GB'
+  - 'pt-br,Português (Brasil),pt_BR'
 
 # A postgresql text search configuration value - it should match the
 # configuration used by the problem_fulltext_idx index.
@@ -76,7 +77,7 @@ DB_FULL_TEXT_SEARCH_CONFIG: 'english'
 
 # If you're running an installation that is being used in a different time zone
 # from the server, you can set the time zone here (standard time zone string)
-TIME_ZONE: ""
+TIME_ZONE: "America/Sao_Paulo"
 
 # File locations for cached geocoding results.
 GEO_CACHE: '../cache/'
