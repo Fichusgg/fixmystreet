@@ -144,7 +144,7 @@ MAPIT_TYPES_CHILDREN: ''
 
 # Which service to use to look up results from e.g. front page searches.
 # Possible choices are Google, Bing, or OSM (blank will use OSM by default).
-GEOCODER: ''
+GEOCODER: 'OSM' 
 
 # If you wish to use Google Maps or Bing Maps Geocoding, get and put the
 # relevant key here.
@@ -168,7 +168,9 @@ BING_MAPS_API_KEY: ''
 #     google_country: <.ccTLD to restrict results to>
 #     lang: <language for results>
 #
-GEOCODING_DISAMBIGUATION: ''
+GEOCODING_DISAMBIGUATION:
+  town: 'São Paulo'
+  country: 'BR'
 
 # The type of map you want to use. If left blank, the default is OpenStreetMap.
 # Other options are currently pretty UK specific, including "FMS" for UK
