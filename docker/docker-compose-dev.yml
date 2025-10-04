@@ -89,7 +89,7 @@ volumes:
   fixmystreet-pgdata:
   fixmystreet-local:
 
-  mapit:
+mapit:
   image: mysociety/fake-mapit:latest
   ports:
     - "9000:9000"
