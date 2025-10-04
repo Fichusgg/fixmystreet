@@ -77,3 +77,13 @@ services:
 
 volumes:
   fixmystreet-pgdata:
+
+mapit:
+  image: mysociety/fake-mapit:latest
+  ports:
+    - "9000:9000"
+  restart: always
+  networks:
+    default:
+      aliases:
+        - mapit.svc
